@@ -34,8 +34,12 @@ RBT::~RBT()
 
 void RBT::Insert(int value)
 {
+	bool bExist = false;
 	//BST Insert
-	RBTNode<int>* x = BSTInsert(value);
+	RBTNode<int>* x = BSTInsert(value, bExist);
+	if(bExist)
+		return;
+
 	//Set Color RED
 	x->color = RED;
 
@@ -176,12 +180,15 @@ const RBTNode<int>* RBT::Find(int value)
 	return node;
 }
 
-RBTNode<int>* RBT::BSTInsert(int value)
+RBTNode<int>* RBT::BSTInsert(int value, bool& out_bExist)
 {
+	out_bExist = true;
+
 	if(root == nullptr)
 	{
 		root = new RBTNode<int>();
 		root->value = value;
+		out_bExist = false;
 		return root;
 	}
 	else
@@ -198,6 +205,7 @@ RBTNode<int>* RBT::BSTInsert(int value)
 					cur->left = new RBTNode<int>();
 					cur->left->value = value;
 					cur->left->parent = cur;
+					out_bExist = false;
 				}
 				cur = cur->left;
 			}
@@ -208,6 +216,7 @@ RBTNode<int>* RBT::BSTInsert(int value)
 					cur->right = new RBTNode<int>();
 					cur->right->value = value;
 					cur->right->parent = cur;
+					out_bExist = false;
 				}
 				cur = cur->right;
 			}

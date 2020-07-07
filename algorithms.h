@@ -34,7 +34,7 @@ class RBT
 		void Insert(int value);
 		const RBTNode<int>* Find(int value);
 	protected:
-		RBTNode<int>* BSTInsert(int value);
+		RBTNode<int>* BSTInsert(int value, bool& out_bExist);
 
 		RBTNode<int>* root;
 };
